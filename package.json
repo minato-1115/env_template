@@ -1,0 +1,19 @@
+{
+  "name": "createtemplate",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "client": "npm run dev --prefix client",
+    "server": "npm start --prefix server",
+    "dev": "concurrently \"npm run client\" \"npm run server\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  },
+  "dependencies": {
+    "@react-pdf/renderer": "^4.0.0"
+  }
+}
