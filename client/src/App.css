@@ -37,12 +37,11 @@
   padding: 2em;
 }
 .view-style {
-  display:flex;
-  flex-direction:"row";
-  align-items:"space-between";
+  display: flex;
+  flex-direction: "row";
+  align-items: "space-between";
   width: 100%;
   height: 100vh;
-
 }
 .read-the-docs {
   color: #888;

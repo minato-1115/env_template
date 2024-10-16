@@ -1,147 +1,230 @@
-import {Document,Page, View,Font ,Text,StyleSheet,Image} from "@react-pdf/renderer";
-import React,{ useContext } from "react";
+import {
+  Document,
+  Page,
+  View,
+  Font,
+  Text,
+  StyleSheet,
+  Image,
+} from "@react-pdf/renderer";
+import React, { useContext } from "react";
 import { MyContext } from "../hooks/useTestHook";
 
-interface CreatePDFProps{
-    state:any
+interface CreatePDFProps {
+  state: any;
 }
 Font.register({
-    family:"Noto Sans JP",
-    fonts:[
-      {src:"/fonts/static/NotoSerifJP-Black.ttf"}
-    ]
-  })
+  family: "Noto Sans JP",
+  fonts: [{ src: "/fonts/static/NotoSerifJP-Black.ttf" }],
+});
 
+const CreatePDF = ({ state }: CreatePDFProps) => {
+  return (
+    <Document title="実験表紙">
+      <Page size="A4" style={[styles.page]}>
+        <Image style={styles.imageStyle} src={"/images/sign.png"}></Image>
+        <View style={styles.section}>
+          <Text style={[styles.textHeader, { textAlign: "center" }]}>
+            物理学実験報告書
+          </Text>
+        </View>
 
-const CreatePDF = ({state}:CreatePDFProps)=>{
- 
+        <View style={[styles.section]}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              width: "88%",
+              borderBottomWidth: 1,
+            }}
+          >
+            <Text style={{ fontSize: 36 }}>題目</Text>
+            <Text
+              style={{ fontSize: 24, position: "relative", left: 10, top: 10 }}
+            >
+              {state.title}
+            </Text>
+          </View>
 
-    return (
-        <Document title="実験表紙">
-          <Page size="A4" style={[styles.page]}>
-          <Image style = {styles.imageStyle} src={"/images/sign.png"}></Image>
-            <View style={styles.section}>
-              
-              <Text style = {[styles.textHeader,{textAlign:"center"}]}>物理学実験報告書</Text>
-            </View>
-            
-            <View style={[styles.section]}>
-              <View style = {{flexDirection:"row",justifyContent:"flex-start",width:"88%",borderBottomWidth:1}}>
-                
-                  <Text style = {{fontSize:36}}>題目</Text><Text style= {{fontSize:24,position:"relative" ,left:10,top:10}}>{state.title}</Text>
-                
-              
-              </View>
+          <View
+            style={{ flexDirection: "row", width: "88%", borderBottomWidth: 1 }}
+          >
+            <Text style={{ fontSize: 24, marginTop: 24 }}>担当先生</Text>
+            <Text
+              style={{
+                fontSize: 24,
+                marginTop: 24,
+                position: "relative",
+                left: 20,
+              }}
+            >
+              {state.teacher}
+            </Text>
+          </View>
+        </View>
 
-              <View style={{flexDirection:"row",width:"88%",borderBottomWidth:1}}>
-              <Text style = {{fontSize:24,marginTop:24}}>担当先生</Text><Text style = {{fontSize:24,marginTop:24,position:"relative",left:20}}>{state.teacher}</Text> 
-              </View>
-            </View>
-    
-            <View style={[styles.section]} >
-            <View style={{flexDirection:"row",width:"100%",justifyContent:"flex-start",borderBottomWidth:1}}>
-              <Text style = {[styles.text,{fontSize:20,width:1000}]}>理学部 第二部	物理学科</Text>
-              <Text style ={[styles.text,{fontSize:20}]}>{state.grade}年</Text>
-              <Text style ={[styles.text,{fontSize:20}]}>{state.grade}曜コース</Text>
-            </View>
-            </View>
-    
-              <View style={styles.section}>
-              <View style={{flexDirection:"row",justifyContent:"flex-start",width:"88%",borderBottomWidth:1}}>
-              <Text style = {[styles.text,{fontSize:20}]}>学籍番号</Text><Text style = {styles.text}>{state.number}</Text>
-              </View>
-              </View>
-    
-              <View style={styles.section} >
-                <View style={{flexDirection:"row",justifyContent:"flex-start",width:"88%",borderBottomWidth:1}}>
-                  <Text style = {[styles.text,{fontSize:20}]}>氏名</Text><Text style = {styles.text}>{state.name}</Text>
-                </View>
-              </View>
+        <View style={[styles.section]}>
+          <View
+            style={{
+              flexDirection: "row",
+              width: "100%",
+              justifyContent: "flex-start",
+              borderBottomWidth: 1,
+            }}
+          >
+            <Text style={[styles.text, { fontSize: 20, width: 1000 }]}>
+              理学部 第二部 物理学科
+            </Text>
+            <Text style={[styles.text, { fontSize: 20 }]}>{state.grade}年</Text>
+            <Text style={[styles.text, { fontSize: 20 }]}>
+              {state.grade}曜コース
+            </Text>
+          </View>
+        </View>
 
-              <View style={styles.section} >
-              <View style={{flexDirection:"row",justifyContent:"space-between",width:"70%",marginTop:8}}>
-                  <Text style = {styles.text}>提出年月日</Text><Text style={styles.text}>{state.submitDay.format(" YYYY 年 MM 月 DD 日 ")}</Text>
-                </View>
-                <View style={{flexDirection:"row",justifyContent:"space-between",width:"70%"}}>
-                  <Text  style= {styles.text}>実験実施日{state.dayOfWeek.format(" MM 月 DD 日 ")}{state.dayOfWeek.format(" MM 月 DD 日 ")}  枚</Text>
-                </View>
-              </View>
+        <View style={styles.section}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              width: "88%",
+              borderBottomWidth: 1,
+            }}
+          >
+            <Text style={[styles.text, { fontSize: 20 }]}>学籍番号</Text>
+            <Text style={styles.text}>{state.number}</Text>
+          </View>
+        </View>
 
-              <View style={[styles.section,{position:"relative",left:"20%"}]}>
-              <Text style={styles.text}>気象条件</Text>
-              <Text style = {styles.textStatus}>➀{state.dayOfWeek.format("MM/DD")},天気　,気圧　hPa,室温　℃,湿度</Text>
-              <Text  style = {styles.textStatus}>➁{state.dayOfWeek.format("MM/DD")},天気　,気圧　hPa,室温　℃,湿度</Text>
-              </View>
-    
-              <View style={styles.section}>
-              <Text style = {styles.text}>共同実験者</Text>
-              <View style={{flexDirection:"row",justifyContent:"flex-start",width:"88%",borderBottomWidth:1}}>
-                
-                <Text  style = {styles.text}>番号</Text>
-                <Text  style = {styles.text}>{state.number}</Text>
-                <Text  style = {styles.text}>氏名</Text><Text style = {styles.text}>{state.coName}</Text>
-                <Text  style = {styles.text}></Text>
-                
-              </View>
-              <View style={{flexDirection:"row",justifyContent:"flex-start",width:"88%",borderBottomWidth:1}}>
-                
-                <Text  style = {styles.text}>番号</Text>
-                <Text  style = {styles.text}>{state.number}</Text>
-                <Text  style = {styles.text}>氏名</Text><Text style = {styles.text}>{state.coName}</Text>
-                <Text  style = {styles.text}></Text>
-                
-              </View>
-          
-              </View>
-              
-              <Text style = {{fontSize:24, textAlign:"center",marginBottom:40}}>東京理科大学　理学部物理学教室</Text>
-            
-          </Page>
-        </Document>
-      );
-}
+        <View style={styles.section}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              width: "88%",
+              borderBottomWidth: 1,
+            }}
+          >
+            <Text style={[styles.text, { fontSize: 20 }]}>氏名</Text>
+            <Text style={styles.text}>{state.name}</Text>
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "70%",
+              marginTop: 8,
+            }}
+          >
+            <Text style={styles.text}>提出年月日</Text>
+            <Text style={styles.text}>
+              {state.submitDay.format(" YYYY 年 MM 月 DD 日 ")}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "70%",
+            }}
+          >
+            <Text style={styles.text}>
+              実験実施日{state.dayOfWeek.format(" MM 月 DD 日 ")}
+              {state.dayOfWeek.format(" MM 月 DD 日 ")} 枚
+            </Text>
+          </View>
+        </View>
+
+        <View style={[styles.section, { position: "relative", left: "20%" }]}>
+          <Text style={styles.text}>気象条件</Text>
+          <Text style={styles.textStatus}>
+            ➀{state.dayOfWeek.format("MM/DD")},天気　,気圧　hPa,室温　℃,湿度
+          </Text>
+          <Text style={styles.textStatus}>
+            ➁{state.dayOfWeek.format("MM/DD")},天気　,気圧　hPa,室温　℃,湿度
+          </Text>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.text}>共同実験者</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              width: "88%",
+              borderBottomWidth: 1,
+            }}
+          >
+            <Text style={styles.text}>番号</Text>
+            <Text style={styles.text}>{state.number}</Text>
+            <Text style={styles.text}>氏名</Text>
+            <Text style={styles.text}>{state.coName}</Text>
+            <Text style={styles.text}></Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              width: "88%",
+              borderBottomWidth: 1,
+            }}
+          >
+            <Text style={styles.text}>番号</Text>
+            <Text style={styles.text}>{state.number}</Text>
+            <Text style={styles.text}>氏名</Text>
+            <Text style={styles.text}>{state.coName}</Text>
+            <Text style={styles.text}></Text>
+          </View>
+        </View>
+
+        <Text style={{ fontSize: 24, textAlign: "center", marginBottom: 40 }}>
+          東京理科大学　理学部物理学教室
+        </Text>
+      </Page>
+    </Document>
+  );
+};
 const styles = StyleSheet.create({
-    page: {
-      marginTop:16,
-      fontSize: 11,
-      fontFamily:"Noto Sans JP",
-      flex:1,
-      justifyContent:"space-between",
-      alignItems:"center"
-    },
-    section: {
-      marginTop: 8,
-      marginHorizontal: 8,
-      width:"80%",
-      flexDirection:"column",
-      alignItems:"center"
-    },
-    textHeader:{
-      fontSize: 44,
-    
-    },
-    itemFont:{
-      fontSize:24
-    },
-    text:{
-      
-      fontSize:16,
-      margin:8,
-      width:"100%"
-    },
-    textStatus:{
-      fontSize:12,
-      width:"100%"
-    },
-    imageStyle:{
-      width:72,
-      height:88,
-      marginLeft:16,
-      position:"absolute",
-      top:"12%",
-      right:"8%",
-
-    }
-  
-  });
-export default CreatePDF
+  page: {
+    marginTop: 16,
+    fontSize: 11,
+    fontFamily: "Noto Sans JP",
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  section: {
+    marginTop: 8,
+    marginHorizontal: 8,
+    width: "80%",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  textHeader: {
+    fontSize: 44,
+  },
+  itemFont: {
+    fontSize: 24,
+  },
+  text: {
+    fontSize: 16,
+    margin: 8,
+    width: "100%",
+  },
+  textStatus: {
+    fontSize: 12,
+    width: "100%",
+  },
+  imageStyle: {
+    width: 72,
+    height: 88,
+    marginLeft: 16,
+    position: "absolute",
+    top: "12%",
+    right: "8%",
+  },
+});
+export default CreatePDF;

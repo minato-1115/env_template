@@ -8,10 +8,12 @@
     "preview": "vite preview",
     "client": "npm run dev --prefix client",
     "server": "npm start --prefix server",
-    "dev": "concurrently \"npm run client\" \"npm run server\""
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "format": "prettier --write \"{client,server}/src/**/*.{js,jsx,ts,tsx,css,scss,json,md}\""
   },
   "devDependencies": {
-    "concurrently": "^9.0.1"
+    "concurrently": "^9.0.1",
+    "prettier": "^3.3.3"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.0.0"
