@@ -6,9 +6,8 @@ def pdf_to_docx(pdf_file, docx_file):
     cv.close()
 
 if __name__ == "__main__":
-    # コマンドライン引数からPDFファイルと出力先のWordファイルのパスを取得
+    
     if len(sys.argv) != 3:
-        print("使い方: python pdf_to_docx.py <PDFファイルパス> <Wordファイルパス>")
         sys.exit(1)
 
     pdf_file = sys.argv[1]
@@ -16,4 +15,3 @@ if __name__ == "__main__":
     
     # PDFをWordに変換
     pdf_to_docx(pdf_file, docx_file)
-    print("変換が完了しました。")

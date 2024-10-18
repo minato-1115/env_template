@@ -6,13 +6,13 @@ const fs = require('fs');
 const app = express();
 const port = 3001;
 const cors = require("cors")
+const os = require("os")
 
-// multer設定：メモリに保存
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 const corsOptions = {
-  origin: 'http://localhost:5173', // クライアントのURL
+  origin: 'http://localhost:5173',
   optionsSuccessStatus: 200
 };
 
@@ -33,20 +33,17 @@ app.post('/upload', upload.single('file'), (req, res) => {
   const pdfPath = path.join(__dirname, 'generated.pdf');
   const docxPath = path.join(__dirname, 'converted.docx');
  
-  // PDFファイルを一時的に保存
+ 
   fs.writeFileSync(pdfPath, req.file.buffer);
 
-  // Pythonスクリプトを実行してPDFをWordに変換
-  const pythonPath = path.join(__dirname, 'venv', 'Scripts', 'python');  // Windows
-  // const pythonPath = path.join(__dirname, 'venv', 'bin', 'python');   // macOS/Linux
-
-
-
+  
+  const pythonPath = os.platform()=== 'win32' ? path.join(__dirname, 'venv', 'Scripts', 'python'):path.join(__dirname, 'venv', 'bin', 'python');
+  
   exec(`${pythonPath} process_pdf.py ${pdfPath} ${docxPath}`,() => {
     
     res.download(docxPath, 'converted.docx', () => {
       console.log(docxPath);
-      // ダウンロード完了後にファイルを削除
+      
       fs.unlinkSync(pdfPath);
       fs.unlinkSync(docxPath);
     });
