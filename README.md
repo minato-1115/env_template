@@ -6,4 +6,7 @@
 
 clientのディレクトリ配下で`npm install` を実行してください。
 
+prettierを使う場合は、プロジェクトのディレクトリ配下でも`npm install`を実行してください。
+
 `npm run dev`で起動可能です。
+
