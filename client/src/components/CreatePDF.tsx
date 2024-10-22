@@ -38,9 +38,11 @@ const CreatePDF = ({ state }: CreatePDFProps) => {
               borderBottomWidth: 1,
             }}
           >
-            <Text style={{ fontSize: 36 }}>題目</Text>
+            <Text style={{ fontSize: 36, position: "relative", top: 5 }}>
+              題目
+            </Text>
             <Text
-              style={{ fontSize: 24, position: "relative", left: 10, top: 10 }}
+              style={{ fontSize: 24, position: "relative", top: 18, left: 10 }}
             >
               {state.title}
             </Text>
@@ -56,6 +58,7 @@ const CreatePDF = ({ state }: CreatePDFProps) => {
                 marginTop: 24,
                 position: "relative",
                 left: 20,
+                padding: 0,
               }}
             >
               {state.teacher}
@@ -138,13 +141,13 @@ const CreatePDF = ({ state }: CreatePDFProps) => {
           </View>
         </View>
 
-        <View style={[styles.section, { position: "relative", left: "20%" }]}>
-          <Text style={styles.text}>気象条件</Text>
+        <View style={[styles.section, { position: "relative", left: 120 }]}>
+          <Text style={[styles.text, { paddingBottom: 16 }]}>気象条件</Text>
           <Text style={styles.textStatus}>
-            ➀{state.dayOfWeek.format("MM/DD")},天気　,気圧　hPa,室温　℃,湿度
+            ➀{state.dayOfWeek.format("MM/DD")},天気　,気圧　hPa,室温　℃,湿度 %
           </Text>
           <Text style={styles.textStatus}>
-            ➁{state.dayOfWeek.format("MM/DD")},天気　,気圧　hPa,室温　℃,湿度
+            ➁{state.dayOfWeek.format("MM/DD")},天気　,気圧　hPa,室温　℃,湿度 %
           </Text>
         </View>
 
@@ -159,9 +162,9 @@ const CreatePDF = ({ state }: CreatePDFProps) => {
             }}
           >
             <Text style={styles.text}>番号</Text>
-            <Text style={styles.text}>{state.number}</Text>
+            <Text style={styles.text}>{state.co1Number}</Text>
             <Text style={styles.text}>氏名</Text>
-            <Text style={styles.text}>{state.coName}</Text>
+            <Text style={styles.text}>{state.coName1}</Text>
             <Text style={styles.text}></Text>
           </View>
           <View
@@ -173,9 +176,9 @@ const CreatePDF = ({ state }: CreatePDFProps) => {
             }}
           >
             <Text style={styles.text}>番号</Text>
-            <Text style={styles.text}>{state.number}</Text>
+            <Text style={styles.text}>{state.co2Number}</Text>
             <Text style={styles.text}>氏名</Text>
-            <Text style={styles.text}>{state.coName}</Text>
+            <Text style={styles.text}>{state.coName2}</Text>
             <Text style={styles.text}></Text>
           </View>
         </View>
@@ -213,6 +216,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     margin: 8,
     width: "100%",
+    position: "relative",
+    top: 10,
   },
   textStatus: {
     fontSize: 12,

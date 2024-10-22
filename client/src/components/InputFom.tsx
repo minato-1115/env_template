@@ -70,14 +70,20 @@ const InputForm = () => {
         label="実験実施日1"
         grade={state.grade}
         selectDate={(selectedDate: Dayjs) =>
-          setState((prevState) => ({ ...prevState, dayOfWeek: selectedDate }))
+          setState((prevState) => ({
+            ...prevState,
+            experimentDay1: selectedDate,
+          }))
         }
       />
       <PickDate
         label="実験実施日2"
         grade={state.grade}
         selectDate={(selectedDate: Dayjs) =>
-          setState((prevState) => ({ ...prevState, dayOfWeek: selectedDate }))
+          setState((prevState) => ({
+            ...prevState,
+            experimentDay2: selectedDate,
+          }))
         }
       />
       <CustomInput
@@ -85,7 +91,16 @@ const InputForm = () => {
         catchValue={(text) =>
           setState((prevState) => ({
             ...prevState,
-            coName: text,
+            coName1: text,
+          }))
+        }
+      />
+      <CustomInput
+        label="共同実験者1の学籍番号"
+        catchValue={(text) =>
+          setState((prevState) => ({
+            ...prevState,
+            co1Number: text,
           }))
         }
       />
@@ -94,7 +109,16 @@ const InputForm = () => {
         catchValue={(text) =>
           setState((prevState) => ({
             ...prevState,
-            coName: text,
+            coName2: text,
+          }))
+        }
+      />
+      <CustomInput
+        label="共同実験者2の学籍番号"
+        catchValue={(text) =>
+          setState((prevState) => ({
+            ...prevState,
+            co2Number: text,
           }))
         }
       />

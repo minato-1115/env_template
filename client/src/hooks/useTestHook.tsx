@@ -9,9 +9,13 @@ interface ValueProps {
   number: string;
   name: string;
   submitDay: Dayjs;
-  experimentDay: Dayjs;
+  experimentDay1: Dayjs;
+  experimentDay2: Dayjs;
   coNumber: string;
-  coName: string;
+  coName1: string;
+  co1Number: string;
+  coName2: string;
+  co2Number: string;
 }
 type MyContextType = {
   state: ValueProps;
@@ -33,9 +37,13 @@ export const MyContextProvider: FC<{ children: ReactNode }> = ({
     number: "",
     name: "",
     submitDay: dayjs(),
-    experimentDay: dayjs(),
+    experimentDay1: dayjs(),
+    experimentDay2: dayjs(),
     coNumber: "",
-    coName: "",
+    coName1: "",
+    coName2: "",
+    co1Number: "",
+    co2Number: "",
   });
 
   return (
