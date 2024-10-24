@@ -3,8 +3,13 @@ import React from "react";
 interface CustomInputProps {
   catchValue: (text: string) => void;
   label: string;
+  placeholder?: string;
 }
-const CustomInput = ({ catchValue, label }: CustomInputProps) => {
+const CustomInput = ({
+  catchValue,
+  label,
+  placeholder = "入力してください",
+}: CustomInputProps) => {
   return (
     <>
       <TextField
@@ -15,7 +20,7 @@ const CustomInput = ({ catchValue, label }: CustomInputProps) => {
           },
         }}
         style={{ marginTop: 16, marginLeft: 8, width: "70%" }}
-        placeholder="文字を入力してください"
+        placeholder={placeholder}
         onChange={(e) => {
           catchValue(e.target.value);
         }}

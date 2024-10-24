@@ -27,6 +27,30 @@ const InputForm = () => {
         height: windowSize.height,
       }}
     >
+      <h2 style={{ color: "#000" }}>レポート表紙の入力欄</h2>
+      <div
+        style={{
+          borderTopWidth: 2,
+          borderTopColor: "#BFC5CA",
+          borderTopStyle: "solid",
+        }}
+      >
+        <p
+          style={{
+            fontWeight: "bold",
+            fontFamily: "sans-serif",
+            color: "#000",
+            height: 0,
+            textAlign: "left",
+            marginLeft: 24,
+            paddingBottom: 24,
+            fontSize: 20,
+          }}
+        >
+          必須の入力事項
+        </p>
+      </div>
+
       <Pulldown
         options={selectItem.title}
         itemName="タイトル"
@@ -43,6 +67,7 @@ const InputForm = () => {
       />
       <CustomInput
         label="学籍番号"
+        placeholder="22XXXXX"
         catchValue={(text) =>
           setState((prevState) => ({
             ...prevState,
@@ -51,6 +76,7 @@ const InputForm = () => {
         }
       />
       <CustomInput
+        placeholder="氏名の入力をしてください　(例:山田　太郎）"
         label="氏名"
         catchValue={(text) =>
           setState((prevState) => ({
@@ -66,27 +92,19 @@ const InputForm = () => {
           setState((prevState) => ({ ...prevState, submitDay: selectedDate }))
         }
       />
-      <PickDate
-        label="実験実施日1"
-        grade={state.grade}
-        selectDate={(selectedDate: Dayjs) =>
-          setState((prevState) => ({
-            ...prevState,
-            experimentDay1: selectedDate,
-          }))
-        }
-      />
-      <PickDate
-        label="実験実施日2"
-        grade={state.grade}
-        selectDate={(selectedDate: Dayjs) =>
-          setState((prevState) => ({
-            ...prevState,
-            experimentDay2: selectedDate,
-          }))
-        }
-      />
       <CustomInput
+        placeholder="ページ数を入力してください"
+        label="ページ数"
+        catchValue={(text) =>
+          setState((prevState) => ({
+            ...prevState,
+            page: text,
+          }))
+        }
+      />
+
+      <CustomInput
+        placeholder="共同実験者の名前を入力してください"
         label="共同実験者1"
         catchValue={(text) =>
           setState((prevState) => ({
@@ -96,6 +114,7 @@ const InputForm = () => {
         }
       />
       <CustomInput
+        placeholder="共同実験者の学籍番号を入力してください"
         label="共同実験者1の学籍番号"
         catchValue={(text) =>
           setState((prevState) => ({
@@ -105,6 +124,7 @@ const InputForm = () => {
         }
       />
       <CustomInput
+        placeholder="共同実験者の名前を入力してください"
         label="共同実験者2"
         catchValue={(text) =>
           setState((prevState) => ({
@@ -114,6 +134,7 @@ const InputForm = () => {
         }
       />
       <CustomInput
+        placeholder="共同実験者の学籍番号を入力してください"
         label="共同実験者2の学籍番号"
         catchValue={(text) =>
           setState((prevState) => ({
@@ -122,6 +143,154 @@ const InputForm = () => {
           }))
         }
       />
+      <div
+        style={{
+          margin: 16,
+          borderTopWidth: 2,
+          borderTopColor: "#BFC5CA",
+          borderTopStyle: "solid",
+          borderBottomWidth: 2,
+          borderBottomColor: "#BFC5CA",
+          borderBottomStyle: "solid",
+        }}
+      >
+        <div>
+          <p
+            style={{
+              fontWeight: "bold",
+              fontFamily: "sans-serif",
+              color: "#000",
+              height: 0,
+              textAlign: "left",
+              marginLeft: 24,
+              marginBottom: 24,
+              fontSize: 20,
+            }}
+          >
+            1日目の入力事項
+          </p>
+          <PickDate
+            label="実験実施日1"
+            grade={state.grade}
+            selectDate={(selectedDate: Dayjs) =>
+              setState((prevState) => ({
+                ...prevState,
+                experimentDay1: selectedDate,
+              }))
+            }
+          />
+          <CustomInput
+            placeholder="気圧の入力してください (一般に1013hpaくらい)"
+            label="１日目の気圧"
+            catchValue={(text) =>
+              setState((prevState) => ({
+                ...prevState,
+                airPressure1: text,
+              }))
+            }
+          />
+
+          <CustomInput
+            placeholder="気温の入力してください"
+            label="1日目の気温"
+            catchValue={(text) =>
+              setState((prevState) => ({
+                ...prevState,
+                temperature1: text,
+              }))
+            }
+          />
+          <CustomInput
+            placeholder="湿度の入力してください"
+            label="1日目の湿度"
+            catchValue={(text) =>
+              setState((prevState) => ({
+                ...prevState,
+                humidity1: text,
+              }))
+            }
+          />
+          <Pulldown
+            options={selectItem.weather}
+            itemName="1日目の天気"
+            selectValue={(newValue: string) => {
+              setState((prevState) => ({ ...prevState, weather1: newValue }));
+            }}
+          />
+        </div>
+        <div
+          style={{
+            marginTop: 16,
+            paddingTop: 8,
+            borderTopWidth: 2,
+            borderTopColor: "#BFC5CA",
+            borderTopStyle: "solid",
+          }}
+        >
+          <p
+            style={{
+              fontWeight: "bold",
+              fontFamily: "sans-serif",
+              color: "#000",
+              height: 0,
+              textAlign: "left",
+              marginLeft: 24,
+              marginBottom: 24,
+              fontSize: 20,
+            }}
+          >
+            2日目の入力事項
+          </p>
+          <PickDate
+            label="実験実施日2"
+            grade={state.grade}
+            selectDate={(selectedDate: Dayjs) =>
+              setState((prevState) => ({
+                ...prevState,
+                experimentDay2: selectedDate,
+              }))
+            }
+          />
+          <CustomInput
+            placeholder="気圧の入力してください (一般に1013hpaくらい)"
+            label="2日目の気圧"
+            catchValue={(text) =>
+              setState((prevState) => ({
+                ...prevState,
+                airPressure2: text,
+              }))
+            }
+          />
+          <CustomInput
+            placeholder="気温の入力してください"
+            label="2日目の気温"
+            catchValue={(text) =>
+              setState((prevState) => ({
+                ...prevState,
+                temperature2: text,
+              }))
+            }
+          />
+
+          <CustomInput
+            placeholder="湿度の入力してください"
+            label="2日目の湿度"
+            catchValue={(text) =>
+              setState((prevState) => ({
+                ...prevState,
+                humidity2: text,
+              }))
+            }
+          />
+          <Pulldown
+            options={selectItem.weather}
+            itemName="2日目の天気"
+            selectValue={(newValue: string) => {
+              setState((prevState) => ({ ...prevState, weather2: newValue }));
+            }}
+          />
+        </div>
+      </div>
       <ConvertButton />
     </div>
   );

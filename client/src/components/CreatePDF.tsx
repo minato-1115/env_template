@@ -135,8 +135,8 @@ const CreatePDF = ({ state }: CreatePDFProps) => {
             }}
           >
             <Text style={styles.text}>
-              実験実施日{state.dayOfWeek.format(" MM 月 DD 日 ")}
-              {state.dayOfWeek.format(" MM 月 DD 日 ")} 枚
+              実験実施日{state.experimentDay1.format(" MM 月 DD 日 ")}
+              {state.experimentDay2.format(" MM 月 DD 日 ")} 枚
             </Text>
           </View>
         </View>
@@ -144,10 +144,14 @@ const CreatePDF = ({ state }: CreatePDFProps) => {
         <View style={[styles.section, { position: "relative", left: 120 }]}>
           <Text style={[styles.text, { paddingBottom: 16 }]}>気象条件</Text>
           <Text style={styles.textStatus}>
-            ➀{state.dayOfWeek.format("MM/DD")},天気　,気圧　hPa,室温　℃,湿度 %
+            ➀{state.experimentDay1.format("MM/DD")},天気{state.weather1},気圧
+            {state.airPressure1}hPa,室温{state.temperature1}℃,湿度
+            {state.humidity1}%
           </Text>
           <Text style={styles.textStatus}>
-            ➁{state.dayOfWeek.format("MM/DD")},天気　,気圧　hPa,室温　℃,湿度 %
+            ➁{state.experimentDay2.format("MM/DD")},天気{state.weather2},気圧
+            {state.airPressure2}hPa,室温{state.temperature2}℃,湿度
+            {state.humidity2}%
           </Text>
         </View>
 

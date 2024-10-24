@@ -16,4 +16,5 @@ export const selectItem = {
     "OPアンプと増幅回路",
     "デジタル回路",
   ],
+  weather: ["快晴", "晴天", "曇り", "雨"],
 };

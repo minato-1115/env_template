@@ -16,6 +16,15 @@ interface ValueProps {
   co1Number: string;
   coName2: string;
   co2Number: string;
+  airPressure1: string;
+  airPressure2: string;
+  weather1: string;
+  weather2: string;
+  temperature1: string;
+  temperature2: string;
+  humidity1: string;
+  humidity2: string;
+  page: string;
 }
 type MyContextType = {
   state: ValueProps;
@@ -44,6 +53,15 @@ export const MyContextProvider: FC<{ children: ReactNode }> = ({
     coName2: "",
     co1Number: "",
     co2Number: "",
+    airPressure1: "",
+    airPressure2: "",
+    weather1: "",
+    weather2: "",
+    temperature1: "",
+    temperature2: "",
+    humidity1: "",
+    humidity2: "",
+    page: "",
   });
 
   return (
