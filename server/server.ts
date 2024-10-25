@@ -18,7 +18,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
-app.post('/upload', upload.single('file'), (req, res) => {
+app.post('/upload', upload.single('file'), (req: { file: { originalname: any; mimetype: any; size: any; buffer: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: string): any; new(): any; }; }; download: (arg0: any, arg1: string, arg2: () => void) => void; }) => {
   if (!req.file) {
     console.log("ファイルが送信されていません")
     return res.status(400).send('ファイルが送信されていません');
