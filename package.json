@@ -9,6 +9,7 @@
     "client": "npm run dev --prefix client",
     "server": "npm start --prefix server",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "postinstall": "npm install typescript -g",
     "format": "prettier --write \"{client,server}/src/**/*.{js,jsx,ts,tsx,css,scss,json,md}\""
   },
   "devDependencies": {
