@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      "outDir": "./dist",    // コンパイル後の出力ディレクトリ
+      "module": "commonjs",
+      "target": "es6",
+      "strict": true
+    },
+    "include": ["server/**/*.ts"]
+  }
