@@ -5,6 +5,6 @@
       "target": "es6",
       "strict": true
     },
-    "include": ["server/**/*.ts"],
-    "exclude": ["./dist"]
+    "include": ["**/*.ts"],
+    "exclude": ["dist"]
   }
