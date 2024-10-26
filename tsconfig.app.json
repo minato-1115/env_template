@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["./client/**/*.ts","./client/**/*.tsx",
-  "./server/**/*.ts","./server/**/*.tsx"]
+  "include": ["./client/vite.config.ts","./client/**/*.ts","./client/**/*.tsx",
+ ]
 }
