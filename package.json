@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "vite build",
+    "build": "cd client && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "client": "npm run dev --prefix client",
