@@ -12,7 +12,7 @@ const os = require("os")
 
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' ? "https://create-template-server-5510e22ac8f9.herokuapp.com"
-  : 'http://localhost:5173',
+  : 'http://localhost:4173',
   optionsSuccessStatus: 200
   
 };
