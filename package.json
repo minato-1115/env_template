@@ -5,11 +5,11 @@
   "scripts": {
     "build": "cd client && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "preview": "npm run preview --prefix client",
     "client": "npm run dev --prefix client",
     "server": "npm start --prefix server",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
-    "postinstall": "npm install typescript -g npm install --prefix client && npm install --prefix server",
+    "postinstall": "npm install typescript -g && npm install --prefix client && npm install --prefix server",
     "format": "prettier --write \"{client,server}/src/**/*.{js,jsx,ts,tsx,css,scss,json,md}\""
   },
   "devDependencies": {
