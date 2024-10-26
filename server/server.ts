@@ -1,3 +1,4 @@
+import { Response } from "express";
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -12,7 +13,7 @@ const os = require("os")
 
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' ? "https://create-template-server-5510e22ac8f9.herokuapp.com"
-  : 'http://localhost:4173',
+  : 'http://localhost:5173',
   optionsSuccessStatus: 200
   
 };
@@ -25,7 +26,7 @@ const upload = multer({ storage: storage });
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // すべてのリクエストで`index.html`を返す設定
-app.get('*', ( res: { sendFile: (arg0: any) => void; }) => {
+app.get('*', ( res: Response) => {
   res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 
