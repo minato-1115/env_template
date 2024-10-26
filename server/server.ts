@@ -8,8 +8,7 @@ const port = process.env.PORT||3001;
 const cors = require("cors")
 const os = require("os")
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+
 
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' ? "https://create-template-server-5510e22ac8f9.herokuapp.com"
@@ -19,6 +18,16 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions))
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// すべてのリクエストで`index.html`を返す設定
+app.get('*', (req: any, res: { sendFile: (arg0: any) => void; }) => {
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+});
 
 app.post('/upload', upload.single('file'), (req: { file: { originalname: any; mimetype: any; size: any; buffer: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: string): any; new(): any; }; }; download: (arg0: any, arg1: string, arg2: () => void) => void; }) => {
   if (!req.file) {
