@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import  { useContext } from "react";
 import { MyContext } from "./hooks/useTestHook";
 import "./App.css";
 import { PDFViewer } from "@react-pdf/renderer";
@@ -13,7 +13,7 @@ function App() {
 
   const { state } = context;
 
-  const size = { width: window.innerWidth, height: innerHeight };
+
   // コンテキストがundefinedの場合のエラーハンドリング
 
   const windowSize = useWindowSize();

@@ -1,5 +1,4 @@
 import { TextField } from "@mui/material";
-import React from "react";
 interface CustomInputProps {
   catchValue: (text: string) => void;
   label: string;

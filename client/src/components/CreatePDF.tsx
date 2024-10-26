@@ -7,8 +7,7 @@ import {
   StyleSheet,
   Image,
 } from "@react-pdf/renderer";
-import React, { useContext } from "react";
-import { MyContext } from "../hooks/useTestHook";
+
 
 interface CreatePDFProps {
   state: any;

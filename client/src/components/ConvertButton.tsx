@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import * as pdfjs from "pdfjs-dist";
 import { pdf } from "@react-pdf/renderer";
 import CreatePDF from "./CreatePDF";
@@ -51,7 +51,7 @@ const ConvertButton = () => {
     formData.append("file", pdfBlob, "物理学実験表紙.pdf");
     console.log("アップロードするPDF:", pdfBlob);
 
-    fetch("http://localhost:3001/upload", {
+    fetch(`${import.meta.env.VITE_API_URL}/upload`, {
       method: "POST",
       body: formData,
     })

@@ -1,13 +1,13 @@
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs, { Dayjs } from "dayjs";
-import React, { useState, useEffect } from "react";
+import  { Dayjs } from "dayjs";
+import  { useState, useEffect } from "react";
 interface PickDateProps {
   grade?: string;
   selectDate: (selectedDay: Dayjs) => void;
   label: string;
 }
-const PickDate = ({ grade = "3", selectDate, label }: PickDateProps) => {
+const PickDate = ({  selectDate, label }: PickDateProps) => {
   const [value, setValue] = useState<Dayjs | null>();
   useEffect(() => {
     if (value) {
