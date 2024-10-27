@@ -1,6 +1,7 @@
 import { Request,Response } from "express";
+import multer ,{ Multer } from "multer";
 import express from "express";
-const multer = require('multer');
+
 const path = require('path');
 const { exec } = require('child_process');
 const fs = require('fs');
@@ -8,6 +9,7 @@ const app = express();
 const port = process.env.PORT||3001;
 const cors = require("cors")
 const os = require("os")
+
 
 interface MulterRequest extends Request {
   file?:Express.Multer.File
@@ -22,7 +24,13 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
-const storage = multer.memoryStorage();
+
+
+// ディレクトリが存在しない場合は作成
+
+
+const storage = multer.memoryStorage()
+
 const upload = multer({ storage: storage });
 
 app.use(express.static(path.join(__dirname, '../client/build')));
@@ -56,7 +64,7 @@ app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):vo
   
   exec(`${pythonPath} process_pdf.py ${pdfPath} ${docxPath}`,() => {
     
-    res.download(docxPath, 'converted.docx', () => {
+      res.download(docxPath, 'converted.docx', () => {
       console.log(docxPath);
       
       fs.unlinkSync(pdfPath);

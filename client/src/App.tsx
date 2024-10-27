@@ -1,4 +1,4 @@
-import  { useContext } from "react";
+import { useContext } from "react";
 import { MyContext } from "./hooks/useTestHook";
 import "./App.css";
 import { PDFViewer } from "@react-pdf/renderer";
@@ -12,7 +12,6 @@ function App() {
   }
 
   const { state } = context;
-
 
   // コンテキストがundefinedの場合のエラーハンドリング
 

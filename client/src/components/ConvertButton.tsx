@@ -48,7 +48,7 @@ const ConvertButton = () => {
     }
 
     const formData = new FormData();
-    formData.append("file", pdfBlob, "物理学実験表紙.pdf");
+    formData.append("file", pdfBlob, "index_template.pdf");
     console.log("アップロードするPDF:", pdfBlob);
 
     fetch(`${import.meta.env.VITE_API_URL}/upload`, {

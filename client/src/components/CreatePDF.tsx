@@ -8,7 +8,6 @@ import {
   Image,
 } from "@react-pdf/renderer";
 
-
 interface CreatePDFProps {
   state: any;
 }
