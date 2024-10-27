@@ -5,9 +5,7 @@
     "module": "ESNext",             // モジュール形式をESNextに設定
     "target": "ES6",                // 出力するJavaScriptのバージョンをES6に
     "esModuleInterop": true,        // ESモジュールとCommonJSの互換性を確保
-    "moduleResolution": "node",     // モジュール解決方法をNode.js互換に
-    "strict": true,                 // 厳密な型チェックを有効に
-    "skipLibCheck": true,           // ライブラリの型チェックをスキップ（パフォーマンス向上）
+    "moduleResolution": "node",     // モジュール解決方法をNode.js互換に   // ライブラリの型チェックをスキップ（パフォーマンス向上）
     "forceConsistentCasingInFileNames": true  // ファイル名の大文字小文字を強制
   },
   "include": ["**/*.ts"],
