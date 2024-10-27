@@ -47,7 +47,11 @@ const ConvertButton = () => {
     formData.append("file", pdfBlob, "index_template.pdf");
     console.log("アップロードするPDF:", pdfBlob);
     
-    fetch(`${import.meta.env.VITE_API_URL}/upload`, {
+    const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://create-template-server-5510e22ac8f9.herokuapp.com'
+  : import.meta.env.VITE_API_URL;
+
+    fetch(`${API_URL}/upload`, {
       method: "POST",
       body: formData,
     })
