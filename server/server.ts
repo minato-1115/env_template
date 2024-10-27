@@ -36,8 +36,11 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 // すべてのリクエストで`index.html`を返す設定
 app.get('*', ( res: Response ) => {
 
-  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
-});
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'), (err) => {
+    if (err) {
+      res.status(500).send("Error loading index.html");
+};
+})});
 
 
 app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):void =>{
