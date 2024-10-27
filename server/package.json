@@ -8,6 +8,7 @@
     "start:dev": "cross-env NODE_ENV=development ts-node server.ts",
     "start:prod": "cross-env NODE_ENV=production node dist/server.js"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+  
     "outDir": "./dist",             // コンパイル後の出力ディレクトリ
     "module": "ESNext",             // モジュール形式をESNextに設定
     "target": "ES6",                // 出力するJavaScriptのバージョンをES6に
