@@ -32,6 +32,7 @@ const storage = multer.memoryStorage()
 const upload = multer({ storage: storage });
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use('/assets', express.static(path.join(__dirname, '../../client/dist/assets')));
 
 // すべてのリクエストで`index.html`を返す設定
 app.get('*', (req:Request, res: Response ) => {
