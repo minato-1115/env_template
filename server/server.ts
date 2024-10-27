@@ -1,14 +1,16 @@
 import { Request,Response } from "express";
-import multer ,{ Multer } from "multer";
+import multer from "multer";
 import express from "express";
+import os from "os"
+import {exec} from "child_process"
+import fs from "fs"
+import path from "path"
 
-const path = require('path');
-const { exec } = require('child_process');
-const fs = require('fs');
+
+
 const app = express();
 const port = process.env.PORT||3001;
 const cors = require("cors")
-const os = require("os")
 
 
 interface MulterRequest extends Request {
@@ -24,13 +26,9 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
-
-
 // ディレクトリが存在しない場合は作成
 
-
 const storage = multer.memoryStorage()
-
 const upload = multer({ storage: storage });
 
 app.use(express.static(path.join(__dirname, '../client/build')));
@@ -56,10 +54,8 @@ app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):vo
   const pdfPath = path.join(__dirname, 'generated.pdf');
   const docxPath = path.join(__dirname, 'converted.docx');
  
- 
   fs.writeFileSync(pdfPath, req.file.buffer);
 
-  
   const pythonPath = os.platform()=== 'win32' ? path.join(__dirname, 'venv', 'Scripts', 'python'):path.join(__dirname, 'venv', 'bin', 'python');
   
   exec(`${pythonPath} process_pdf.py ${pdfPath} ${docxPath}`,() => {
