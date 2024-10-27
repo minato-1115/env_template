@@ -33,7 +33,7 @@ const upload = multer({ storage: storage });
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use('/assets', express.static(path.join(__dirname, '../../client/dist/assets')));
-
+app.use('/fonts', express.static(path.join(__dirname, '../../client/dist/fonts')));
 // すべてのリクエストで`index.html`を返す設定
 app.get('*', (req:Request, res: Response ) => {
 
