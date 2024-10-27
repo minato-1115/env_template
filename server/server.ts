@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 // すべてのリクエストで`index.html`を返す設定
 app.get('*', (req:Request, res: Response ) => {
 
-  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'), (err) => {
+  res.sendFile(path.join(__dirname, '../../client/dist', 'index.html'), (err) => {
     if (err) {
       console.error("index.htmlの読み込みエラー:", err);
       res.status(500).send("Error loading index.html");
