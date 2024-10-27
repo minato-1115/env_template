@@ -51,6 +51,7 @@ const ConvertButton = () => {
   ? 'https://create-template-server-5510e22ac8f9.herokuapp.com'
   : import.meta.env.VITE_API_URL;
 
+  console.log("API URL:", API_URL);
     fetch(`${API_URL}/upload`, {
       method: "POST",
       body: formData,
