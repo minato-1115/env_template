@@ -1,5 +1,5 @@
-
-const express = require('express');
+import { Request,Response } from "express";
+import express from "express";
 const multer = require('multer');
 const path = require('path');
 const { exec } = require('child_process');
@@ -26,15 +26,16 @@ const upload = multer({ storage: storage });
 app.use(express.static(path.join(__dirname, '../client/build')));
 
 // すべてのリクエストで`index.html`を返す設定
-app.get('*', ( res: { sendFile: (arg0: any) => void; }) => {
+app.get('*', ( res: Response ) => {
+
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-app.post('/upload', upload.single('file'), (req: { file: { originalname: any; mimetype: any; size: any; buffer: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: string): any; new(): any; }; }; download: (arg0: any, arg1: string, arg2: () => void) => void; }) => {
+app.post('/upload', upload.single('file'), (req:Request, res: Response):void =>{
   if (!req.file) {
     console.log("ファイルが送信されていません")
-    return res.status(400).send('ファイルが送信されていません');
-  }
+    res.status(400).send('ファイルが送信されていません');
+    return }
 
   console.log('アップロードされたファイル情報:', {
     originalname: req.file.originalname,
