@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import {useEffect, useContext, useState } from "react";
 import * as pdfjs from "pdfjs-dist";
 import { pdf } from "@react-pdf/renderer";
 import CreatePDF from "./CreatePDF";
@@ -12,11 +12,16 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 const ConvertButton = () => {
   const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
   const context = useContext(MyContext);
+  
   if (!context) {
     throw new Error("MyContext.Provider が正しく設定されていません");
   }
 
   const { state } = context;
+  var i = 1
+  useEffect(()=>{
+    alert(i+1)
+  },[state])
   const generatePdf = async () => {
     try {
       const pdfInstance = pdf(<CreatePDF state={state} />);
