@@ -41,16 +41,11 @@ const ConvertButton = () => {
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
-
-    if (!pdfBlob) {
-      alert("PDFを生成してください");
-      return;
-    }
-
+  
     const formData = new FormData();
     formData.append("file", pdfBlob, "index_template.pdf");
     console.log("アップロードするPDF:", pdfBlob);
-
+    
     fetch(`${import.meta.env.VITE_API_URL}/upload`, {
       method: "POST",
       body: formData,
@@ -62,7 +57,7 @@ const ConvertButton = () => {
         return response.blob();
       })
       .then((blob) => {
-        const url = window.URL.createObjectURL(blob);
+        const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.style.display = "none";
         a.href = url;
@@ -70,11 +65,12 @@ const ConvertButton = () => {
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
+      
       })
       .catch((error) => {
         console.error("エラーが発生しました:", error.message);
         console.error("エラー詳細:", error);
-        alert("PDFの送信中にエラーが発生しました");
+        alert("pdfのアップロード中のエラー")
       });
   };
 

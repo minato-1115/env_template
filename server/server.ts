@@ -1,14 +1,17 @@
-import express, { Request,Response } from "express";
-
+import { Request,Response } from "express";
+import express from "express";
 import os from "os"
 import {exec} from "child_process"
 import fs from "fs"
-import * as path from "path"
-import multer from "multer";
+import path from "path"
 import cors from "cors"
+import multer from "multer";
+import { fileURLToPath } from "url";
+
 const app = express();
 const port = process.env.PORT||3001;
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 interface MulterRequest extends Request {
   file?:Express.Multer.File
@@ -36,6 +39,7 @@ app.get('*', ( res: Response ) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
+
 app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):void =>{
   if (!req.file) {
     console.log("ファイルが送信されていません")
@@ -48,20 +52,26 @@ app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):vo
     size: req.file.size,
   });
 
-  const pdfPath = path.join(__dirname, 'generated.pdf');
+  const pdfPath = path.join(__dirname, 'process_pdf.pdf');
   const docxPath = path.join(__dirname, 'converted.docx');
- 
+  const scriptPath = path.join(__dirname, 'process_pdf.py');
+
   fs.writeFileSync(pdfPath, req.file.buffer);
 
   const pythonPath = os.platform()=== 'win32' ? path.join(__dirname, 'venv', 'Scripts', 'python'):path.join(__dirname, 'venv', 'bin', 'python');
   
-  exec(`${pythonPath} process_pdf.py ${pdfPath} ${docxPath}`,() => {
-    
+  exec(`${pythonPath} ${scriptPath} ${pdfPath} ${docxPath}`,(error,stdout) => {
+    if(error){
+      console.error("スクリプトの実行エラー:",error)
+      res.status(500).send("PDF変換エラー")
+      return 
+    }
+    console.log("スクリプト標準出力:",stdout)
       res.download(docxPath, 'converted.docx', () => {
       console.log(docxPath);
-      
-      fs.unlinkSync(pdfPath);
-      fs.unlinkSync(docxPath);
+        fs.unlinkSync(pdfPath);
+        fs.unlinkSync(docxPath);
+ 
     });
   });
 });
