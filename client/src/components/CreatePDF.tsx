@@ -11,10 +11,10 @@ import {
 interface CreatePDFProps {
   state: any;
 }
-Font.register({
-  family: "Noto Sans JP",
-  fonts: [{ src: "/fonts/static/NotoSerifJP-Black.ttf" }],
-});
+// Font.register({
+//   family: "Noto Sans JP",
+//   fonts: [{ src: "/fonts/static/NotoSerifJP-Black.ttf" }],
+// });
 
 const CreatePDF = ({ state }: CreatePDFProps) => {
   return (
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   page: {
     marginTop: 16,
     fontSize: 11,
-    fontFamily: "Noto Sans JP",
+    // fontFamily: "Noto Sans JP",
     flex: 1,
     justifyContent: "space-between",
     alignItems: "center",

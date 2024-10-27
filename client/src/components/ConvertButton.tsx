@@ -18,10 +18,6 @@ const ConvertButton = () => {
   }
 
   const { state } = context;
-  var i = 1
-  useEffect(()=>{
-    alert(i+1)
-  },[state])
   const generatePdf = async () => {
     try {
       const pdfInstance = pdf(<CreatePDF state={state} />);
