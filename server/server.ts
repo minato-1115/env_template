@@ -9,7 +9,9 @@ const port = process.env.PORT||3001;
 const cors = require("cors")
 const os = require("os")
 
-
+interface MulterRequest extends Request {
+  file?:Express.Multer.File
+}
 
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' ? "https://create-template-server-5510e22ac8f9.herokuapp.com"
@@ -31,7 +33,7 @@ app.get('*', ( res: Response ) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-app.post('/upload', upload.single('file'), (req:Request, res: Response):void =>{
+app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):void =>{
   if (!req.file) {
     console.log("ファイルが送信されていません")
     res.status(400).send('ファイルが送信されていません');
