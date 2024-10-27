@@ -1,5 +1,4 @@
 import { Request,Response } from "express";
-import multer from "multer";
 import express from "express";
 import os from "os"
 import {exec} from "child_process"
@@ -9,6 +8,7 @@ import path from "path"
 const app = express();
 const port = process.env.PORT||3001;
 const cors = require("cors")
+const multer = require("multer")
 interface MulterRequest extends Request {
   file?:Express.Multer.File
 }
