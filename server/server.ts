@@ -31,12 +31,12 @@ app.use(cors(corsOptions))
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage });
 
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // すべてのリクエストで`index.html`を返す設定
 app.get('*', ( res: Response ) => {
 
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 
 
