@@ -6,13 +6,9 @@ import {exec} from "child_process"
 import fs from "fs"
 import path from "path"
 
-
-
 const app = express();
 const port = process.env.PORT||3001;
 const cors = require("cors")
-
-
 interface MulterRequest extends Request {
   file?:Express.Multer.File
 }

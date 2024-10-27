@@ -1,11 +1,14 @@
 {
-    "compilerOptions": {
-      "outDir": "./dist",    // コンパイル後の出力ディレクトリ
-      "esModuleInterop": true,
-      "moduleResolution": "node",
-      "target": "es6",
-      "strict": true
-    },
-    "include": ["**/*.ts"],
-    "exclude": ["dist"]
-  }
+  "compilerOptions": {
+    "outDir": "./dist",             // コンパイル後の出力ディレクトリ
+    "module": "ESNext",             // モジュール形式をESNextに設定
+    "target": "ES6",                // 出力するJavaScriptのバージョンをES6に
+    "esModuleInterop": true,        // ESモジュールとCommonJSの互換性を確保
+    "moduleResolution": "node",     // モジュール解決方法をNode.js互換に
+    "strict": true,                 // 厳密な型チェックを有効に
+    "skipLibCheck": true,           // ライブラリの型チェックをスキップ（パフォーマンス向上）
+    "forceConsistentCasingInFileNames": true  // ファイル名の大文字小文字を強制
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["dist", "node_modules"]  // `dist`と`node_modules`は除外
+}
