@@ -34,7 +34,7 @@ const upload = multer({ storage: storage });
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // すべてのリクエストで`index.html`を返す設定
-app.get('*', ( res: Response ) => {
+app.get('*', (req:Request, res: Response ) => {
 
   res.sendFile(path.join(__dirname, '../client/dist', 'index.html'), (err) => {
     if (err) {
