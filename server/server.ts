@@ -66,11 +66,11 @@ app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):vo
   const pythonPath = os.platform()=== 'win32' ? path.join(__dirname, 'venv', 'Scripts', 'python'):path.join(__dirname, 'venv', 'bin', 'python');
   
   exec(`${pythonPath} ${scriptPath} ${pdfPath} ${docxPath}`,(error,stdout) => {
-    // if(error){
-    //   console.error("スクリプトの実行エラー:",error)
-    //   res.status(500).send("PDF変換エラー")
-    //   return 
-    // }
+    if(error){
+      console.error("スクリプトの実行エラー:",error)
+      res.status(500).send("PDF変換エラー")
+      return 
+    }
     console.log("スクリプト標準出力:",stdout)
       res.download(docxPath, 'converted.docx', () => {
       console.log(docxPath);
