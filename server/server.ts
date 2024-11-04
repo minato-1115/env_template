@@ -63,7 +63,7 @@ app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):vo
 
   fs.writeFileSync(pdfPath, req.file.buffer);
 
-  const pythonPath = os.platform()=== 'win32' ? path.join(__dirname, 'venv', 'Scripts', 'python'):path.join(__dirname, 'venv', 'bin', 'python');
+  const pythonPath = os.platform()=== 'win32' ? path.join(__dirname, 'venv', 'Scripts', 'python'):'python3';
   
   exec(`${pythonPath} ${scriptPath} ${pdfPath} ${docxPath}`,(error,stdout) => {
     if(error){
