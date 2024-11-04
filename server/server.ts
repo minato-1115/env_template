@@ -63,7 +63,7 @@ app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):vo
 
   fs.writeFileSync(pdfPath, req.file.buffer);
 
-  const pythonPath = os.platform()=== 'win32' ? path.join(__dirname, 'venv', 'Scripts', 'python'):'python3';
+  const pythonPath = os.platform()=== 'win32' ? path.join(__dirname, 'venv', 'Scripts', 'python'):path.join(__dirname, 'venv', 'bin', 'python');
   
   exec(`${pythonPath} ${scriptPath} ${pdfPath} ${docxPath}`,(error,stdout) => {
     // if(error){
@@ -75,7 +75,7 @@ app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):vo
       res.download(docxPath, 'converted.docx', () => {
       console.log(docxPath);
         fs.unlinkSync(pdfPath);
-        // fs.unlinkSync(docxPath);
+        fs.unlinkSync(docxPath);
  
     });
   });
