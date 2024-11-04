@@ -76,7 +76,7 @@ const ConvertButton = () => {
       .catch((error) => {
         console.error("エラーが発生しました:", error.message);
         console.error("エラー詳細:", error);
-        // alert("pdfのアップロード中のエラー")
+        alert("pdfのアップロード中のエラー")
       });
   };
 
