@@ -11,7 +11,6 @@ interface ValueProps {
   submitDay: Dayjs;
   experimentDay1: Dayjs;
   experimentDay2: Dayjs;
-  coNumber: string;
   coName1: string;
   co1Number: string;
   coName2: string;
@@ -48,7 +47,6 @@ export const MyContextProvider: FC<{ children: ReactNode }> = ({
     submitDay: dayjs(),
     experimentDay1: dayjs(),
     experimentDay2: dayjs(),
-    coNumber: "",
     coName1: "",
     coName2: "",
     co1Number: "",

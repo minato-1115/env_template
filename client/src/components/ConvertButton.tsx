@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import * as pdfjs from "pdfjs-dist";
 import { pdf } from "@react-pdf/renderer";
 import CreatePDF from "./CreatePDF";
@@ -12,12 +12,29 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 const ConvertButton = () => {
   const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
   const context = useContext(MyContext);
-  
+  const [isDisable, setIsDisable] = useState(true);
   if (!context) {
-    throw new Error("MyContext.Provider が正しく設定されていません");
+    throw new Error("コンテクストのプロバイダーが正しく設定されていません");
   }
-
   const { state } = context;
+  //useEffectで値の更新が入るたびにボタンの活性を変化させる記述を追加
+  useEffect(() => {
+    if (
+      state.title &&
+      state.teacher &&
+      state.dayOfWeek &&
+      state.name &&
+      state.number &&
+      state.submitDay &&
+      state.experimentDay1 &&
+      state.page
+    ) {
+      setIsDisable(false);
+    } else {
+      setIsDisable(true);
+    }
+  }, [state]);
+
   const generatePdf = async () => {
     try {
       const pdfInstance = pdf(<CreatePDF state={state} />);
@@ -31,7 +48,7 @@ const ConvertButton = () => {
 
   const handleSendPdf = () => {
     if (!pdfBlob) {
-      throw new Error("MyContext.Provider が正しく設定されていません");
+      throw new Error("コンテクストのプロバイダーが正しく設定されていません");
     }
 
     const url = window.URL.createObjectURL(pdfBlob);
@@ -42,16 +59,17 @@ const ConvertButton = () => {
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
-  
+
     const formData = new FormData();
     formData.append("file", pdfBlob, "index_template.pdf");
     console.log("アップロードするPDF:", pdfBlob);
-    
-    const API_URL = process.env.NODE_ENV === 'production'
-  ? 'https://create-template-server-5510e22ac8f9.herokuapp.com'
-  : import.meta.env.VITE_API_URL;
 
-  console.log("API URL:", API_URL);
+    const API_URL =
+      process.env.NODE_ENV === "production"
+        ? "https://create-template-server-5510e22ac8f9.herokuapp.com"
+        : import.meta.env.VITE_API_URL;
+
+    console.log("API URL:", API_URL);
     fetch(`${API_URL}/upload`, {
       method: "POST",
       body: formData,
@@ -71,12 +89,11 @@ const ConvertButton = () => {
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
-      
       })
       .catch((error) => {
         console.error("エラーが発生しました:", error.message);
         console.error("エラー詳細:", error);
-        alert("pdfのアップロード中のエラー")
+        alert("pdfのアップロード中のエラー");
       });
   };
 
@@ -86,8 +103,10 @@ const ConvertButton = () => {
     >
       <IconButton
         sx={{ width: 136, borderRadius: 2 }}
-        style={{ fontSize: 16, color: "#1976d2" }}
+        style={{ fontSize: 16 }}
+        color="primary"
         onClick={generatePdf}
+        disabled={isDisable}
       >
         <UpdateIcon />
         　表紙の生成

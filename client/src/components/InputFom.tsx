@@ -1,5 +1,5 @@
 import CustomInput from "./CustomInput";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MyContext } from "../hooks/useTestHook";
 import PickDate from "./PickDate";
 import { Dayjs } from "dayjs";
@@ -7,14 +7,15 @@ import Pulldown from "./Pulldown";
 import { selectItem } from "../common/constants/selectItems";
 import useWindowSize from "../hooks/useWindowSize";
 import ConvertButton from "./ConvertButton";
+import { useShowErrorMsg } from "../hooks/useErrorMsg";
 const InputForm = () => {
+  const errorMsg = useShowErrorMsg();
   const context = useContext(MyContext);
   const windowSize = useWindowSize();
   // コンテキストがundefinedの場合のエラーハンドリング
   if (!context) {
     throw new Error("MyContext.Provider が正しく設定されていません");
   }
-
   const { state, setState } = context;
   return (
     <div
@@ -104,6 +105,16 @@ const InputForm = () => {
       />
 
       <CustomInput
+        placeholder="共同実験者の学籍番号を入力してください"
+        label="共同実験者1の学籍番号"
+        catchValue={(text) =>
+          setState((prevState) => ({
+            ...prevState,
+            co1Number: text,
+          }))
+        }
+      />
+      <CustomInput
         placeholder="共同実験者の名前を入力してください"
         label="共同実験者1"
         catchValue={(text) =>
@@ -113,13 +124,14 @@ const InputForm = () => {
           }))
         }
       />
+
       <CustomInput
         placeholder="共同実験者の学籍番号を入力してください"
-        label="共同実験者1の学籍番号"
+        label="共同実験者2の学籍番号"
         catchValue={(text) =>
           setState((prevState) => ({
             ...prevState,
-            co1Number: text,
+            co2Number: text,
           }))
         }
       />
@@ -133,16 +145,7 @@ const InputForm = () => {
           }))
         }
       />
-      <CustomInput
-        placeholder="共同実験者の学籍番号を入力してください"
-        label="共同実験者2の学籍番号"
-        catchValue={(text) =>
-          setState((prevState) => ({
-            ...prevState,
-            co2Number: text,
-          }))
-        }
-      />
+
       <div
         style={{
           margin: 16,
@@ -292,6 +295,18 @@ const InputForm = () => {
         </div>
       </div>
       <ConvertButton />
+      <p
+        style={{
+          fontWeight: "bold",
+          fontFamily: "sans-serif",
+          color: "#f00",
+          marginLeft: 24,
+          marginBottom: 24,
+          fontSize: 16,
+        }}
+      >
+        {errorMsg}
+      </p>
     </div>
   );
 };

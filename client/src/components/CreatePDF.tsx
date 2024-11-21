@@ -7,7 +7,8 @@ import {
   StyleSheet,
   Image,
 } from "@react-pdf/renderer";
-
+import { dayOfWeekObj } from "../common/constants/date";
+import { useEffect, useState } from "react";
 interface CreatePDFProps {
   state: any;
 }
@@ -17,6 +18,10 @@ Font.register({
 });
 
 const CreatePDF = ({ state }: CreatePDFProps) => {
+  const [dayOfWeek, setDayOfWeek] = useState("");
+  useEffect(() => {
+    setDayOfWeek(dayOfWeekObj[state.experimentDay1.day()]);
+  }, [state.experimentDay1]);
   return (
     <Document title="実験表紙">
       <Page size="A4" style={[styles.page]}>
@@ -59,7 +64,7 @@ const CreatePDF = ({ state }: CreatePDFProps) => {
                 padding: 0,
               }}
             >
-              {state.teacher}
+              {state.teacher + "   先生"}
             </Text>
           </View>
         </View>
@@ -70,15 +75,16 @@ const CreatePDF = ({ state }: CreatePDFProps) => {
               flexDirection: "row",
               width: "100%",
               justifyContent: "flex-start",
-              borderBottomWidth: 1,
             }}
           >
             <Text style={[styles.text, { fontSize: 20, width: 1000 }]}>
               理学部 第二部 物理学科
             </Text>
-            <Text style={[styles.text, { fontSize: 20 }]}>{state.grade}年</Text>
+            <Text style={[styles.text, { fontSize: 20 }]}>3年</Text>
             <Text style={[styles.text, { fontSize: 20 }]}>
-              {state.grade}曜コース
+              {state.experimentDay1.isValid()
+                ? dayOfWeek + "曜コース"
+                : "曜コース"}
             </Text>
           </View>
         </View>
@@ -120,9 +126,11 @@ const CreatePDF = ({ state }: CreatePDFProps) => {
               marginTop: 8,
             }}
           >
-            <Text style={styles.text}>提出年月日</Text>
             <Text style={styles.text}>
-              {state.submitDay.format(" YYYY 年 MM 月 DD 日 ")}
+              {state.submitDay.isValid()
+                ? "提出年月日    " +
+                  state.submitDay.format(" YYYY 年 MM 月 DD 日 ")
+                : "提出年月日    " + "年 月 日"}
             </Text>
           </View>
           <View
@@ -133,8 +141,14 @@ const CreatePDF = ({ state }: CreatePDFProps) => {
             }}
           >
             <Text style={styles.text}>
-              実験実施日{state.experimentDay1.format(" MM 月 DD 日 ")}
-              {state.experimentDay2.format(" MM 月 DD 日 ")} 枚
+              {state.experimentDay1.isValid()
+                ? "実験実施日  " + state.experimentDay1.format(" MM 月 DD 日 ")
+                : "実験実施日    月  日"}
+              ,
+              {state.experimentDay2.isValid()
+                ? state.experimentDay2.format(" MM 月 DD 日 ")
+                : "  月  日"}
+              {"    " + state.page + "  枚"}
             </Text>
           </View>
         </View>
@@ -142,14 +156,24 @@ const CreatePDF = ({ state }: CreatePDFProps) => {
         <View style={[styles.section, { position: "relative", left: 120 }]}>
           <Text style={[styles.text, { paddingBottom: 16 }]}>気象条件</Text>
           <Text style={styles.textStatus}>
-            ➀{state.experimentDay1.format("MM/DD")},天気{state.weather1},気圧
-            {state.airPressure1}hPa,室温{state.temperature1}℃,湿度
-            {state.humidity1}%
+            ➀
+            {state.experimentDay1.isValid()
+              ? state.experimentDay1.format("MM/DD")
+              : "  /  "}
+            ,{"  天気  " + state.weather1 + "  "},
+            {"  気圧  " + state.airPressure1 + "   hPa"},
+            {"  室温  " + state.temperature1 + "  ℃  "},
+            {"  湿度 " + state.humidity1 + "  %"}
           </Text>
           <Text style={styles.textStatus}>
-            ➁{state.experimentDay2.format("MM/DD")},天気{state.weather2},気圧
-            {state.airPressure2}hPa,室温{state.temperature2}℃,湿度
-            {state.humidity2}%
+            ➁
+            {state.experimentDay2.isValid()
+              ? state.experimentDay2.format("MM/DD")
+              : "  /  "}
+            ,{"  天気  " + state.weather2 + "  "},
+            {"  気圧  " + state.airPressure2 + "   hPa"},
+            {"  室温  " + state.temperature2 + "  ℃  "},
+            {"  湿度 " + state.humidity2 + "  %"}
           </Text>
         </View>
 
@@ -163,11 +187,8 @@ const CreatePDF = ({ state }: CreatePDFProps) => {
               borderBottomWidth: 1,
             }}
           >
-            <Text style={styles.text}>番号</Text>
-            <Text style={styles.text}>{state.co1Number}</Text>
-            <Text style={styles.text}>氏名</Text>
-            <Text style={styles.text}>{state.coName1}</Text>
-            <Text style={styles.text}></Text>
+            <Text style={styles.text}>{"番号  " + state.co1Number}</Text>
+            <Text style={styles.text}>{"氏名  " + state.coName1}</Text>
           </View>
           <View
             style={{
@@ -177,11 +198,8 @@ const CreatePDF = ({ state }: CreatePDFProps) => {
               borderBottomWidth: 1,
             }}
           >
-            <Text style={styles.text}>番号</Text>
-            <Text style={styles.text}>{state.co2Number}</Text>
-            <Text style={styles.text}>氏名</Text>
-            <Text style={styles.text}>{state.coName2}</Text>
-            <Text style={styles.text}></Text>
+            <Text style={styles.text}>{"番号  " + state.co2Number}</Text>
+            <Text style={styles.text}>{"氏名  " + state.coName2}</Text>
           </View>
         </View>
 
