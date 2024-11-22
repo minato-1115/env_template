@@ -59,7 +59,7 @@ app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):vo
 
   const pdfPath = path.join(__dirname, 'process_pdf.pdf');
   const docxPath = path.join(__dirname, 'converted.docx');
-  const scriptPath = path.join(__dirname, 'process_pdf.py');
+  const scriptPath = path.join(__dirname, '../process_pdf.py');
 
   fs.writeFileSync(pdfPath, req.file.buffer);
 
