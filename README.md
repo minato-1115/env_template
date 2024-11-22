@@ -4,7 +4,7 @@
 
 `git clone https://github.com/minato-1115/ReportTemplate.git` を実行してください。
 
-プロジェクト配下、clientの配下とserverの配下のディレクトリで`npm install` を実行してください。
+プロジェクト配下で`npm run postinstall` を実行してください。
 
 prettierを使う場合は、プロジェクトのディレクトリ配下でも`npm install`を実行してください。
 
