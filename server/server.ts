@@ -64,7 +64,7 @@ app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):vo
 
   fs.writeFileSync(pdfPath, req.file.buffer);
 
-  const pythonPath = os.platform()=== 'win32' ? path.join(__dirname, 'venv', 'Scripts', 'python'):path.join(__dirname, 'venv', 'bin', 'python');
+  const pythonPath = process.env.NODE_ENV==="production" ? "python": os.platform()=== 'win32' ? path.join(__dirname, 'venv', 'Scripts', 'python'):path.join(__dirname, 'venv', 'bin', 'python');
   
   const pythonProcess = spawn(pythonPath,[scriptPath,pdfPath,docxPath])
   pythonProcess.stdout.on("data",(data)=>{
@@ -89,20 +89,6 @@ app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):vo
     });
   });
 
-  // exec(`${pythonPath} ${scriptPath} ${pdfPath} ${docxPath}`,(error,stdout) => {
-  //   if(error){
-  //     console.error("スクリプトの実行エラー:",error)
-  //     res.status(500).send("PDF変換エラー")
-  //     return 
-  //   }
-  //   console.log("スクリプト標準出力:",stdout)
-  //     res.download(docxPath, 'converted.docx', () => {
-  //     console.log(docxPath);
-  //       fs.unlinkSync(pdfPath);
-  //       fs.unlinkSync(docxPath);
- 
-  //   });
-  // });
 });
 
 app.listen(port, () => {
