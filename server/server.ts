@@ -64,7 +64,7 @@ app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):vo
 
   fs.writeFileSync(pdfPath, req.file.buffer);
 
-  const pythonPath = process.env.NODE_ENV==="production" ? "python": os.platform()=== 'win32' ? path.join(__dirname, 'venv', 'Scripts', 'python'):path.join(__dirname, 'venv', 'bin', 'python');
+  const pythonPath = process.env.NODE_ENV==="production" ? "python3": os.platform()=== 'win32' ? path.join(__dirname, 'venv', 'Scripts', 'python'):path.join(__dirname, 'venv', 'bin', 'python');
   
   const pythonProcess = spawn(pythonPath,[scriptPath,pdfPath,docxPath])
   pythonProcess.stdout.on("data",(data)=>{
