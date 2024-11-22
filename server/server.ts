@@ -7,6 +7,7 @@ import path from "path"
 import cors from "cors"
 import multer from "multer";
 import { fileURLToPath } from "url";
+import { spawn } from "child_process"; 
 
 const app = express();
 const port = process.env.PORT||3001;
@@ -65,13 +66,21 @@ app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):vo
 
   const pythonPath = os.platform()=== 'win32' ? path.join(__dirname, 'venv', 'Scripts', 'python'):path.join(__dirname, 'venv', 'bin', 'python');
   
-  exec(`${pythonPath} ${scriptPath} ${pdfPath} ${docxPath}`,(error,stdout) => {
-    if(error){
-      console.error("スクリプトの実行エラー:",error)
+  const pythonProcess = spawn(pythonPath,[scriptPath,pdfPath,docxPath])
+  pythonProcess.stdout.on("data",(data)=>{
+    console.log(`stdout:${data}`)
+  })
+  pythonProcess.stderr.on("data",(data)=>{
+    console.log(`stdout:${data}`)
+  })
+    pythonProcess.on("close",(code)=>{
+      if(code !== 0){
+        console.error("スクリプトの実行エラー:",code)
       res.status(500).send("PDF変換エラー")
-      return 
-    }
-    console.log("スクリプト標準出力:",stdout)
+      return ;
+      }
+    
+    console.log("スクリプトが正常に終了しました")
       res.download(docxPath, 'converted.docx', () => {
       console.log(docxPath);
         fs.unlinkSync(pdfPath);
@@ -79,6 +88,21 @@ app.post('/upload', upload.single('file'), (req:MulterRequest, res: Response):vo
  
     });
   });
+
+  // exec(`${pythonPath} ${scriptPath} ${pdfPath} ${docxPath}`,(error,stdout) => {
+  //   if(error){
+  //     console.error("スクリプトの実行エラー:",error)
+  //     res.status(500).send("PDF変換エラー")
+  //     return 
+  //   }
+  //   console.log("スクリプト標準出力:",stdout)
+  //     res.download(docxPath, 'converted.docx', () => {
+  //     console.log(docxPath);
+  //       fs.unlinkSync(pdfPath);
+  //       fs.unlinkSync(docxPath);
+ 
+  //   });
+  // });
 });
 
 app.listen(port, () => {
